@@ -7,6 +7,8 @@ import MoreVerticalIcon from "@mui/icons-material/MoreVert";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SearchIcon from "@mui/icons-material/Search";
 import Button from "@mui/material/Button";
+import { signOut } from "firebase/auth";
+import { auth } from "../config/firebase";
 
 const StyledContainer = styled.div`
   height: 100vh;
@@ -56,6 +58,13 @@ const StyledSidebarButton = styled(Button)`
 `;
 
 const Sidebar = () => {
+  const logout = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.log("ERROR LOGGING OUT", error);
+    }
+  };
   return (
     <StyledContainer>
       <StyledHeader>
@@ -70,7 +79,7 @@ const Sidebar = () => {
           <IconButton>
             <MoreVerticalIcon />
           </IconButton>
-          <IconButton>
+          <IconButton onClick={logout}>
             <LogoutIcon />
           </IconButton>
         </div>
